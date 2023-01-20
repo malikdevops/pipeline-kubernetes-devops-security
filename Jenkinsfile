@@ -12,22 +12,18 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Unit Test') {
             steps {
-                sh 'mvn test -Dmaven.test.failure.ignore=true -Dmaven.javadoc.skip=true -Djacoco.skip=false'
-                junit 'target/surefire-reports/*.xml'
-          }
-            post {
-                always {
-                    jacoco 'target/jacoco.exec'
-                }
-          }
+                sh "mvn test"
+            }
         }
-
-
-        
-
-
+            post {
+              always {
+                junit 'target/surefire-reports/*.xml'
+                jacoco.execPattern:'target/jacoco.exec'
+            }
+               }
+  
     }
 }
 
