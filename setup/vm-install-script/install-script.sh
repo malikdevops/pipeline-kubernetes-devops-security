@@ -51,7 +51,7 @@ mkdir -p ~/.kube
 sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-kubectl apply -f https://docs.projectcalico.org/manifests/calico.yamlkubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 sleep 60
 
@@ -79,8 +79,10 @@ docker-compose --version
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
 docker-compose up -d 
 
-echo ".........----------------#################._.-.-ALIAS-COMPLETION-.-._.#################----------------........."
+sleep 10
 
+echo ".........----------------#################._.-.-KUBECTL-ALIAS-.-._.#################----------------........."
+#!/bin/bash
 curl https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases -o ~/.kubectl_aliases
 echo "source ~/.kubectl_aliases" >> ~/.bashrc
 source ~/.bashrc
