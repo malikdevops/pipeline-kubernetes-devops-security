@@ -51,6 +51,7 @@ mkdir -p ~/.kube
 sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yamlkubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 sleep 60
 
@@ -67,17 +68,25 @@ sudo apt install -y maven
 mvn -v
 
 
+echo ".........----------------#################._.-.-DOCKER-COMPOSE-.-._.#################----------------........."
+sudo apt-get update
+sudo apt-get install curl -y
+sudo curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo usermod -aG docker $USER
+docker-compose --version
 
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt update
-sudo apt install -y jenkins
-systemctl daemon-reload
-systemctl enable jenkins
-sudo systemctl start jenkins
-#sudo systemctl status jenkins
-sudo usermod -a -G docker jenkins
-echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+docker-compose up -d 
+
+echo ".........----------------#################._.-.-ALIAS-COMPLETION-.-._.#################----------------........."
+
+curl https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases -o ~/.kubectl_aliases
+echo "source ~/.kubectl_aliases" >> ~/.bashrc
+source ~/.bashrc
+source <(kubectl completion bash)
 
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
+
+
+## To retrieve jenkins admin password credentials : docker exec {jekins_image_name} cat /var/jenkins_home/secrets/initialAdminPassword 
