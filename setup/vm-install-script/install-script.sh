@@ -82,11 +82,14 @@ docker-compose up -d
 sleep 10
 
 echo ".........----------------#################._.-.-KUBECTL-ALIAS-.-._.#################----------------........."
-#!/bin/bash
-curl https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases -o ~/.kubectl_aliases
-echo "source ~/.kubectl_aliases" >> ~/.bashrc
-source ~/.bashrc
-source <(kubectl completion bash)
+
+sudo kubectl completion bash > /etc/bash_completion.d/kubectl
+echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
+echo "source /etc/bash_completion" >> ~/.bashrc
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "alias k=kubectl" >> ~/.bashrc
+echo "complete -F __start_kubectl k" >> ~/.bashrc
+exec bash
 
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
 
