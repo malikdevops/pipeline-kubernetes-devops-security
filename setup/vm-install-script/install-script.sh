@@ -60,7 +60,7 @@ kubectl taint node $(kubectl get nodes -o=jsonpath='{.items[].metadata.name}')  
 kubectl get node -o wide
 
 
-echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
+echo ".........----------------#################._.-.-JAVA-JENKINS-.-._.#################----------------........."
 sudo apt update -y
 sudo apt install openjdk-11-jdk -y
 sudo wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
@@ -70,7 +70,7 @@ sudo apt install jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins 
 
-echo ".........----------------#################._.-.-Java and MAVEN-.-._.#################----------------........."
+echo ".........----------------#################._.-.-MAVEN-.-._.#################----------------........."
 sudo apt update -y
 java -version
 sudo apt install -y maven
