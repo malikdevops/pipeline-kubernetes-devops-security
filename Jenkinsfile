@@ -1,9 +1,4 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.6.3-jdk-11'
-        }
-    }
     stages {
         stage('Build Artifacts') {
             steps {
@@ -13,19 +8,18 @@ pipeline {
         }
 
         stage('Unit Test') {
-    steps {
-        sh "mvn test"
-    }
-    post {
-        always {
-            script {
-                junit 'target/surefire-reports/*.xml'
-                jacoco.execPattern 'target/jacoco.exec'
+            steps {
+                sh "mvn test"
+            }
+            post {
+                always {
+                    script {
+                        junit 'target/surefire-reports/*.xml'
+                        jacoco.execPattern 'target/jacoco.exec'
+                    }
+                }
             }
         }
+        
     }
 }
-
-    }
-}
-
