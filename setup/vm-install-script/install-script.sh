@@ -68,7 +68,8 @@ sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sou
 sudo apt update -y
 sudo apt install jenkins
 sudo systemctl start jenkins
-sudo systemctl status jenkins 
+sudo systemctl enable jenkins
+ 
 
 echo ".........----------------#################._.-.-MAVEN-.-._.#################----------------........."
 sudo apt update -y
