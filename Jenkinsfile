@@ -12,14 +12,14 @@ pipeline {
             steps {
                 sh "mvn test"
             }
-            post {
-                always {
-                    script {
-                        junit skipPublishingChecks: true 'target/surefire-reports/*.xml'
-                        jacoco.execPattern 'target/jacoco.exec'
-                    }
-                }
-            }
+            // post {
+            //     always {
+            //         script {
+            //             junit skipPublishingChecks: true 'target/surefire-reports/*.xml'
+            //             jacoco.execPattern 'target/jacoco.exec'
+            //         }
+            //     }
+            // }
         }
     }
 }
