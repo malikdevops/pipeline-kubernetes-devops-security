@@ -60,26 +60,21 @@ kubectl taint node $(kubectl get nodes -o=jsonpath='{.items[].metadata.name}')  
 kubectl get node -o wide
 
 
+echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
+sudo apt update -y
+sudo apt install openjdk-11-jdk -y
+sudo wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update -y
+sudo apt install jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins 
 
 echo ".........----------------#################._.-.-Java and MAVEN-.-._.#################----------------........."
-sudo apt install openjdk-8-jdk -y
+sudo apt update -y
 java -version
 sudo apt install -y maven
 mvn -v
-
-
-echo ".........----------------#################._.-.-DOCKER-COMPOSE-.-._.#################----------------........."
-sudo apt-get update
-sudo apt-get install curl -y
-sudo curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo usermod -aG docker $USER
-docker-compose --version
-
-echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
-docker-compose up -d 
-
-sleep 10
 
 echo ".........----------------#################._.-.-KUBECTL-ALIAS-.-._.#################----------------........."
 
@@ -94,4 +89,4 @@ exec bash
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
 
 
-## To retrieve jenkins admin password credentials : docker exec {jekins_image_name} cat /var/jenkins_home/secrets/initialAdminPassword 
+## To retrieve jenkins admin password credentials : cat /var/lib/jenkins/secrets/initialAdminPassword
