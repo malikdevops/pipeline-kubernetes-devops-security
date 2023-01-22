@@ -3,7 +3,7 @@ pipeline {
         IMAGE_NAME = "numeric-webapp"
         APP_CONTAINER_PORT = "8080"
         DOCKERHUB_ID = "malikdevops97"
-        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
+       // DOCKERHUB_PASSWORD = credentials('dockerhub_password')
         IMAGE_TAG = "latest"
     }
     agent any
