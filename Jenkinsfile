@@ -8,18 +8,29 @@ pipeline {
             }
         }
 
+
+
         stage('Unit Test') {
             steps {
-                sh "mvn test"
+                sh 'mvn test'
+                script {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
-            // post {
-            //     always {
-            //         script {
-            //             junit skipPublishingChecks: true 'target/surefire-reports/*.xml'
-            //             jacoco.execPattern 'target/jacoco.exec'
-            //         }
-            //     }
-            // }
+            post {
+                success {
+                    jacoco coverage: 'target/jacoco.exec'
+                }
+            }
         }
+
+        stage('Security Test') {
+            steps {
+                sh 'mvn verify -Psecurity'
+            }
+        }
+
+
+        
     }
 }
