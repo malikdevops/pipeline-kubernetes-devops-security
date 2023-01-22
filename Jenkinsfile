@@ -45,11 +45,12 @@ pipeline {
         sh "mvn verify -Powasp"
       }
     }
+
     stage('Static Analysis - OWASP ZAP') {
       steps {
         sh "mvn verify -Powasp-zap"
       }
     }  
 
-
+    }
 }
