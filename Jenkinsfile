@@ -30,7 +30,7 @@ pipeline {
            agent any
            steps {
               script {
-                sh 'docker build  -t ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG .'
+                sh 'sudo docker build  -t ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG .'
                 
               }
            }
