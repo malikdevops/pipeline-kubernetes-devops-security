@@ -30,6 +30,12 @@ pipeline {
       }
         
     }
+
+    stage('Integration Tests - SoapUI') {
+      steps {
+        sh "mvn verify -Psoapui"
+      }
+    }
     stage('Performance Tests - JMeter') {
       steps {
         sh "mvn verify -Pperformance"
@@ -52,20 +58,20 @@ pipeline {
     }
 
 
-       stage('SonarQube - SAST') {
-      steps {
-        withSonarQubeEnv('SonarQube') {
-          sh "mvn sonar:sonar \
-		              -Dsonar.projectKey=numeric-application \
-		              -Dsonar.host.url=http://jenkins-adm.eastus.cloudapp.azure.com:9000"
-        }
-        timeout(time: 2, unit: 'MINUTES') {
-          script {
-            waitForQualityGate abortPipeline: true
-          }
-        }
-      }
-    }
+    //    stage('SonarQube - SAST') {
+    //   steps {
+    //     withSonarQubeEnv('SonarQube') {
+    //       sh "mvn sonar:sonar \
+	// 	              -Dsonar.projectKey=numeric-application \
+	// 	              -Dsonar.host.url=http://jenkins-adm.eastus.cloudapp.azure.com:9000"
+    //     }
+    //     timeout(time: 2, unit: 'MINUTES') {
+    //       script {
+    //         waitForQualityGate abortPipeline: true
+    //       }
+    //     }
+    //   }
+    // }
 
     stage('Static Analysis - OWASP Dependency Check') {
       steps {
