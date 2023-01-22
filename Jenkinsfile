@@ -51,7 +51,7 @@ pipeline {
         sh "mvn verify -Ppmd"
       }
     }
-    stage('Static Analysis - FindBugs') {
+    stage('Static Analysis test- FindBugs') {
       steps {
         sh "mvn verify -Pfindbugs"
       }
