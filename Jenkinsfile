@@ -9,21 +9,11 @@ pipeline {
         }
 
 
-
-        stage('Unit Test') {
-            steps {
-                sh 'mvn test'
-                script {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-            post {
-                success {
-                    jacoco coverage: 'target/jacoco.exec'
-                }
-            }
-        }
-
+   stage('Unit Tests - JUnit and JaCoCo') {
+      steps {
+        sh "mvn test"
+      }
+    }
         stage('Security Test') {
             steps {
                 sh 'mvn verify -Psecurity'
