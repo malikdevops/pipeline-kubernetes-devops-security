@@ -4,7 +4,7 @@ pipeline {
         APP_CONTAINER_PORT = "8080"
         DOCKERHUB_ID = "malikdevops97"
         DOCKERHUB_PASSWORD = credentials('dockerhub_password')
-        $IMAGE_TAG = "latest"
+        IMAGE_TAG = "latest"
     }
     agent any
     stages {
